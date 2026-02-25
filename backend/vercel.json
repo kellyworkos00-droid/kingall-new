@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "src/server.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/server.ts"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "JWT_EXPIRES_IN": "7d",
+    "NODE_ENV": "production"
+  }
+}
