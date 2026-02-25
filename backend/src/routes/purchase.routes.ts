@@ -209,7 +209,7 @@ router.post('/:id/receive', authenticate, authorize('ADMIN', 'MANAGER', 'STOREKE
       return res.status(400).json({ error: 'Warehouse is required' });
     }
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       const purchaseOrder = await tx.purchaseOrder.findUnique({
         where: { id },
         include: {

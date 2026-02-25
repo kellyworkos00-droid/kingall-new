@@ -115,7 +115,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
 
     // Calculate totals
     let totalAmount = new Prisma.Decimal(0);
-    const processedItems = [];
+    const processedItems: any[] = [];
 
     for (const item of items) {
       const product = await prisma.product.findUnique({
@@ -146,7 +146,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
     const orderNumber = `SO-${String(count + 1).padStart(6, '0')}`;
 
     // Create sales order with transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       const salesOrder = await tx.salesOrder.create({
         data: {
           orderNumber,

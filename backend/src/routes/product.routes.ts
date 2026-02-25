@@ -189,8 +189,8 @@ router.get('/alerts/low-stock', authenticate, async (req: AuthRequest, res: Resp
       }
     });
 
-    const lowStockProducts = products.filter(product => {
-      const totalStock = product.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
+    const lowStockProducts = products.filter((product: any) => {
+      const totalStock = product.stocks.reduce((sum: number, stock: any) => sum + stock.quantity, 0);
       return totalStock <= product.reorderLevel;
     });
 

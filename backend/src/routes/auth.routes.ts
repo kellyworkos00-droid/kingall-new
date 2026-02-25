@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { prisma } from '../config/database';
 import { authenticate, AuthRequest } from '../middleware/auth.middleware';
 
@@ -29,8 +29,8 @@ router.post('/login', async (req: Request, res: Response) => {
 
     const token = jwt.sign(
       { userId: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      process.env.JWT_SECRET || 'default-secret',
+      { expiresIn: '7d' }
     );
 
     // Log activity

@@ -43,9 +43,9 @@ router.get('/sales', authenticate, async (req: AuthRequest, res: Response) => {
 
     const summary = {
       totalOrders: salesOrders.length,
-      totalRevenue: salesOrders.reduce((sum, order) => sum.add(order.grandTotal), new Prisma.Decimal(0)).toString(),
-      totalDiscount: salesOrders.reduce((sum, order) => sum.add(order.discount), new Prisma.Decimal(0)).toString(),
-      totalTax: salesOrders.reduce((sum, order) => sum.add(order.tax), new Prisma.Decimal(0)).toString()
+      totalRevenue: salesOrders.reduce((sum: any, order: any) => sum.add(order.grandTotal), new Prisma.Decimal(0)).toString(),
+      totalDiscount: salesOrders.reduce((sum: any, order: any) => sum.add(order.discount), new Prisma.Decimal(0)).toString(),
+      totalTax: salesOrders.reduce((sum: any, order: any) => sum.add(order.tax), new Prisma.Decimal(0)).toString()
     };
 
     res.json({
@@ -96,8 +96,8 @@ router.get('/purchases', authenticate, async (req: AuthRequest, res: Response) =
 
     const summary = {
       totalOrders: purchaseOrders.length,
-      totalPurchases: purchaseOrders.reduce((sum, order) => sum.add(order.grandTotal), new Prisma.Decimal(0)).toString(),
-      totalPaid: purchaseOrders.reduce((sum, order) => sum.add(order.paidAmount), new Prisma.Decimal(0)).toString(),
+      totalPurchases: purchaseOrders.reduce((sum: any, order: any) => sum.add(order.grandTotal), new Prisma.Decimal(0)).toString(),
+      totalPaid: purchaseOrders.reduce((sum: any, order: any) => sum.add(order.paidAmount), new Prisma.Decimal(0)).toString(),
       totalBalance: purchaseOrders.reduce((sum, order) => sum.add(order.balance), new Prisma.Decimal(0)).toString()
     };
 

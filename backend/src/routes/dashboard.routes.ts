@@ -27,7 +27,7 @@ router.get('/stats', authenticate, async (req: AuthRequest, res: Response) => {
       }
     });
 
-    const totalRevenue = salesOrders.reduce((sum, order) => 
+const totalRevenue = salesOrders.reduce((sum: any, order: any) =>
       sum.add(order.grandTotal), new Prisma.Decimal(0)
     );
 
@@ -39,7 +39,7 @@ router.get('/stats', authenticate, async (req: AuthRequest, res: Response) => {
       }
     });
 
-    const totalPurchases = purchaseOrders.reduce((sum, order) => 
+const totalPurchases = purchaseOrders.reduce((sum: any, order: any) =>
       sum.add(order.grandTotal), new Prisma.Decimal(0)
     );
 
@@ -48,7 +48,7 @@ router.get('/stats', authenticate, async (req: AuthRequest, res: Response) => {
       select: { balance: true }
     });
 
-    const totalReceivables = customers.reduce((sum, customer) => 
+const totalReceivables = customers.reduce((sum: any, customer: any) =>
       sum.add(customer.balance), new Prisma.Decimal(0)
     );
 
@@ -57,7 +57,7 @@ router.get('/stats', authenticate, async (req: AuthRequest, res: Response) => {
       select: { balance: true }
     });
 
-    const totalPayables = suppliers.reduce((sum, supplier) => 
+const totalPayables = suppliers.reduce((sum: any, supplier: any) =>
       sum.add(supplier.balance), new Prisma.Decimal(0)
     );
 
@@ -72,7 +72,7 @@ router.get('/stats', authenticate, async (req: AuthRequest, res: Response) => {
       }
     });
 
-    const stockValue = stocks.reduce((sum, stock) => 
+const stockValue = stocks.reduce((sum: any, stock: any) =>
       sum.add(new Prisma.Decimal(stock.quantity).mul(stock.product.costPrice)), 
       new Prisma.Decimal(0)
     );
@@ -85,8 +85,8 @@ router.get('/stats', authenticate, async (req: AuthRequest, res: Response) => {
       }
     });
 
-    const lowStockCount = products.filter(product => {
-      const totalStock = product.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
+    const lowStockCount = products.filter((product: any) => {
+      const totalStock = product.stocks.reduce((sum: number, stock: any) => sum + stock.quantity, 0);
       return totalStock <= product.reorderLevel;
     }).length;
 
@@ -146,7 +146,7 @@ router.get('/sales-trend', authenticate, async (req: AuthRequest, res: Response)
     // Group by period
     const grouped: any = {};
     
-    sales.forEach(sale => {
+    sales.forEach((sale: any) => {
       const key = period === 'month'
         ? `${sale.orderDate.getFullYear()}-${String(sale.orderDate.getMonth() + 1).padStart(2, '0')}`
         : sale.orderDate.toISOString().split('T')[0];

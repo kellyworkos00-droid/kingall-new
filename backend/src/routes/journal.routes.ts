@@ -124,7 +124,7 @@ router.post('/', authenticate, authorize('ADMIN', 'ACCOUNTANT'), async (req: Aut
     const count = await prisma.journalEntry.count();
     const entryNumber = `JE-${String(count + 1).padStart(6, '0')}`;
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       const journalEntry = await tx.journalEntry.create({
         data: {
           entryNumber,

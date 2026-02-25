@@ -97,7 +97,7 @@ router.post('/movements', authenticate, authorize('ADMIN', 'MANAGER', 'STOREKEEP
     }
 
     // Start a transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // Create movement record
       const movement = await tx.stockMovement.create({
         data: {
