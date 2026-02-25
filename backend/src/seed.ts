@@ -9,14 +9,19 @@ async function main() {
   // Create users
   console.log('Creating users...');
   
-  const adminPassword = await bcrypt.hash('Admin@123', 10);
-  const ownerPassword = await bcrypt.hash('owner@2026', 10);
+  const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@example.com';
+  const adminPlainPassword = process.env.SEED_ADMIN_PASSWORD || 'ChangeMe123!';
+  const ownerEmail = process.env.SEED_OWNER_EMAIL || 'owner@example.com';
+  const ownerPlainPassword = process.env.SEED_OWNER_PASSWORD || 'ChangeMe123!';
+
+  const adminPassword = await bcrypt.hash(adminPlainPassword, 10);
+  const ownerPassword = await bcrypt.hash(ownerPlainPassword, 10);
 
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@kellyos.com' },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@kellyos.com',
+      email: adminEmail,
       password: adminPassword,
       name: 'System Admin',
       role: UserRole.ADMIN
@@ -24,10 +29,10 @@ async function main() {
   });
 
   const owner = await prisma.user.upsert({
-    where: { email: 'pkingori14@gmail.com' },
+    where: { email: ownerEmail },
     update: {},
     create: {
-      email: 'pkingori14@gmail.com',
+      email: ownerEmail,
       password: ownerPassword,
       name: 'Owner',
       role: UserRole.ADMIN
@@ -147,9 +152,9 @@ async function main() {
   console.log('✅ Sample customer created');
 
   console.log('🎉 Database seed completed successfully!');
-  console.log('\n📝 Login Credentials:');
-  console.log('Admin: admin@kellyos.com / Admin@123');
-  console.log('Owner: pkingori14@gmail.com / owner@2026');
+  console.log('\n📝 Seed users created:');
+  console.log(`Admin: ${adminEmail}`);
+  console.log(`Owner: ${ownerEmail}`);
 }
 
 main()

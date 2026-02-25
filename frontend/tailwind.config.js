@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-grotesk)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-playfair)', 'Georgia', 'serif'],
+      },
       colors: {
         primary: {
           50: '#f0f9ff',
@@ -20,6 +24,20 @@ module.exports = {
           800: '#075985',
           900: '#0c4a6e',
         },
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        fadeInUp: {
+          '0%': { opacity: 0, transform: 'translateY(12px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        float: 'float 8s ease-in-out infinite',
+        'fade-in-up': 'fadeInUp 0.6s ease-out both',
       },
     },
   },
